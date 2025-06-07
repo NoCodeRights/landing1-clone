@@ -2,7 +2,7 @@
 // Ubicación: src/components/Testimonials.jsx
 // Descripción: Sección de testimonios con video y citas de clientes satisfechos
 
-
+/*
 import { useEffect, useState } from 'react';
 
 export default function Testimonials() {
@@ -26,7 +26,7 @@ export default function Testimonials() {
   return (
     <section id="testimonios" className="py-16 bg-gray-100">
       <div className="max-w-6xl mx-auto px-4">
-        {/* Título de sección */}
+        //Título de sección 
         <h2 className="text-3xl md:text-4xl font-bold text-center text-cyan-800 mb-8">
           Testimonios
         </h2>
@@ -36,7 +36,7 @@ export default function Testimonials() {
               key={item.id}
               className="flex flex-col md:flex-row items-center bg-white rounded-2xl shadow-lg overflow-hidden"
             >
-              {/* Video o placeholder */}
+              // Video o placeholder 
               {item.videoUrl ? (
                 <video
                   src={item.videoUrl}
@@ -50,7 +50,7 @@ export default function Testimonials() {
                 </div>
               )}
 
-              {/* Texto de testimonio si hay video */}
+              // Texto de testimonio si hay video 
               {item.videoUrl && (
                 <div className="w-full md:w-1/2 p-6">
                   <p className="text-gray-700 italic">"{item.text}"</p>
@@ -64,3 +64,4 @@ export default function Testimonials() {
     </section>
   );
 }
+*/

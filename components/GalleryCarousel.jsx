@@ -1,13 +1,7 @@
 import Slider from 'react-slick';
 import Image from 'next/image';
 
-const images = [
-  '/images/proyecto1.jpeg',
-  '/images/proyecto2.jpeg',
-  '/images/proyecto3.jpeg',
-  '/images/proyecto4.jpeg',
-  '/images/proyecto5.jpeg',
-];
+const images = Array.from({ length: 307 }, (_, i) => `/images/proyecto (${i + 1}).jpg`);
 
 export default function GalleryCarousel() {
   const settings = {
