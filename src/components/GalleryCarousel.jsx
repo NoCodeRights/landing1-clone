@@ -1,4 +1,3 @@
-// src/components/GalleryCarousel.jsx
 'use client';
 
 import { useState, useRef, useMemo } from 'react';
@@ -11,7 +10,6 @@ export default function GalleryCarousel() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
-  // Rutas de imágenes
   const images = useMemo(
     () =>
       Array.from({ length: 307 }, (_, i) =>
@@ -29,8 +27,8 @@ export default function GalleryCarousel() {
     slidesToScroll: 1,
     arrows: false,
     dots: false,
-    autoplay: true,        // autoplay
-    autoplaySpeed: 4000,   // cada 4s
+    autoplay: true,
+    autoplaySpeed: 4000,
     beforeChange: (_, next) => setCurrent(next),
     responsive: [
       {
@@ -43,7 +41,6 @@ export default function GalleryCarousel() {
     ]
   };
 
-  // Índices para los 5 botones (dos previos, actual, dos siguientes)
   const navButtons = useMemo(() => {
     const total = images.length;
     return [-2, -1, 0, 1, 2].map(offset => (current + offset + total) % total);
@@ -78,14 +75,14 @@ export default function GalleryCarousel() {
           ))}
         </Slider>
 
-        {/* Controles manuales con mayor separación */}
-        <div className="flex justify-center items-center space-x-4 mt-4">
+        {/* Controles manuales con más tamaño y separación */}
+        <div className="flex justify-center items-center space-x-6 mt-4">
           {navButtons.map((idx, btn) => (
             <button
               key={btn}
               onClick={() => sliderRef.current?.slickGoTo(idx)}
               className={`
-                w-4 h-4 rounded-full
+                w-6 h-6 rounded-full
                 ${idx === current ? 'bg-cyan-800' : 'bg-cyan-300'}
                 hover:bg-cyan-600 transition-colors
               `}
@@ -101,7 +98,6 @@ export default function GalleryCarousel() {
           className="fixed inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center z-50 p-4"
           onClick={() => setLightboxOpen(false)}
         >
-          {/* Imagen grande */}
           <div className="relative w-full max-w-3xl h-0 pb-[56.25%] mb-4">
             <Image
               src={images[lightboxIndex]}
