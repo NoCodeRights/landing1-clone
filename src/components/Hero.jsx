@@ -1,4 +1,4 @@
-// Archivo: src/components/Hero.jsx
+// src/components/Hero.jsx
 
 import { motion } from 'framer-motion';
 
@@ -11,10 +11,10 @@ export default function Hero() {
         alt="Piscina instalada por Piscinas Patricio Luengo"
         className="absolute inset-0 w-full h-full object-cover z-0"
       />
-      <div className="absolute inset-0 bg-black bg-opacity-40 z-0" />
+      <div className="absolute inset-0 bg-black bg-opacity-40 z-10" />
 
       {/* Contenido sobre la imagen */}
-      <div className="relative z-10 h-full flex flex-col justify-center items-center text-center text-white px-4">
+      <div className="relative z-20 h-full flex flex-col justify-center items-center text-center text-white px-4">
         <motion.h1
           className="text-4xl sm:text-5xl md:text-6xl font-bold drop-shadow-lg"
           initial={{ opacity: 0, y: -20 }}

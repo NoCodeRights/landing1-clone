@@ -1,6 +1,7 @@
 // src/pages/index.jsx
 
 import Header from '../components/Header';
+import Hero from '../components/Hero';
 
 export default function Home() {
   return (
@@ -8,9 +9,9 @@ export default function Home() {
       {/* Header fijo en top */}
       <Header />
 
-      {/* Mensaje temporal de construcción */}
-      <main style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-        🚧 Sitio en construcción 🚧
+      {/* Sección Hero */}
+      <main>
+        <Hero />
       </main>
     </>
   );
