@@ -1,28 +1,18 @@
-// components/GalleryCarousel.jsx
+// src/components/GalleryCarousel.jsx
 'use client';
 
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useMemo } from 'react';
-
-// Import dinámico de la función componente, extrayendo .default
-const Slider = dynamic(
-  () =>
-    import('react-slick').then((mod) => {
-      // mod.default es el componente Slider
-      return mod.default;
-    }),
-  { ssr: false }
-);
+import Slider from 'react-slick';
 
 export default function GalleryCarousel() {
-  // temporalmente en GalleryCarousel.jsx
-const images = [
-  '/images/proyecto1.jpeg',
-  '/images/proyecto2.jpeg',
-  '/images/proyecto3.jpeg'
-];
-
+  const images = useMemo(
+    () =>
+      Array.from({ length: 307 }, (_, i) =>
+        encodeURI(`/images/proyecto (${i + 1}).jpg`)
+      ),
+    []
+  );
 
   const settings = {
     dots: true,
