@@ -1,18 +1,22 @@
-// Archivo: src/pages/index.jsx
-// Página principal con estructura de componentes por sección
+// src/pages/index.jsx
+
 import { SEO } from '../utils/seo';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
-import GalleryCarousel from '../components/GalleryCarousel';
+import dynamic from 'next/dynamic';
+// Carrusel client-only
+const GalleryCarousel = dynamic(
+  () => import('../components/GalleryCarousel'),
+  { ssr: false }
+);
 import Process from '../components/Process';
-//import Testimonials from '../components/Testimonials';
+// import Testimonials from '../components/Testimonials'; // comentado
 import FAQ from '../components/FAQ';
 import Footer from '../components/Footer';
 
 export default function Home() {
   return (
     <>
-      {/* SEO personalizado para la página principal */}
       <SEO
         title="Piscinas Patricio Luengo - Instalación de Piscinas en Chile"
         description="Especialistas en construcción de piscinas a medida. Confianza, experiencia y diseño personalizado."
@@ -26,10 +30,8 @@ export default function Home() {
         url="https://www.piscinaspatricioluengo.cl/"
       />
 
-      {/* Encabezado de navegación */}
       <Header />
 
-      {/* Contenido principal por secciones */}
       <main>
         <Hero />
         <GalleryCarousel />
@@ -38,7 +40,6 @@ export default function Home() {
         <FAQ />
       </main>
 
-      {/* Pie de página */}
       <Footer />
     </>
   );
