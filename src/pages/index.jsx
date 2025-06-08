@@ -4,7 +4,8 @@ import Header from '../components/Header';
 import Hero from '../components/Hero';
 import dynamic from 'next/dynamic';
 import Process from '../components/Process';
-import FAQ from '../components/FAQ'; // ✅ Reactivado
+import FAQ from '../components/FAQ';
+import Footer from '../components/Footer';  // ✅ Reactivado
 
 // Carrusel client-only
 const GalleryCarousel = dynamic(
@@ -15,18 +16,26 @@ const GalleryCarousel = dynamic(
 export default function Home() {
   return (
     <>
+      {/* Header fijo en top */}
       <Header />
 
       <main>
+        {/* Hero */}
         <Hero />
 
+        {/* Carrusel de proyectos */}
         <GalleryCarousel />
 
+        {/* Nuestro Proceso */}
         <Process />
 
-        {/* Sección de Preguntas Frecuentes */}
+        {/* Preguntas Frecuentes */}
         <FAQ />
       </main>
+
+      {/* Footer con contacto */}
+      <Footer />
     </>
   );
 }
+// Nota: El componente Testimonials se ha eliminado de la página principal

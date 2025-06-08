@@ -48,7 +48,9 @@ export default function Footer() {
         {/* Logo y derechos */}
         <div className="text-center md:text-right">
           <p className="font-bold text-lg">Piscinas Patricio Luengo</p>
-          <p className="mt-2 text-sm">© {new Date().getFullYear()} Todos los derechos reservados</p>
+          <p className="mt-2 text-sm">
+            © {new Date().getFullYear()} Todos los derechos reservados
+          </p>
         </div>
       </div>
     </footer>
