@@ -1,21 +1,26 @@
-// File: components/GalleryCarousel.jsx
+// components/GalleryCarousel.jsx
 'use client';
 
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useMemo } from 'react';
 
-// Import dinámico sin SSR
-const Slider = dynamic(() => import('react-slick'), { ssr: false });
-
-// Estilos de slick-carousel
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+// Import dinámico de la función componente, extrayendo .default
+const Slider = dynamic(
+  () =>
+    import('react-slick').then((mod) => {
+      // mod.default es el componente Slider
+      return mod.default;
+    }),
+  { ssr: false }
+);
 
 export default function GalleryCarousel() {
-  // Construimos la lista de imágenes escapando espacios
   const images = useMemo(
-    () => Array.from({ length: 307 }, (_, i) => encodeURI(`/images/proyecto (${i + 1}).jpg`)),
+    () =>
+      Array.from({ length: 307 }, (_, i) =>
+        encodeURI(`/images/proyecto (${i + 1}).jpg`)
+      ),
     []
   );
 
