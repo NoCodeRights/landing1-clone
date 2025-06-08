@@ -1,3 +1,4 @@
+// src/components/GalleryCarousel.jsx
 'use client';
 
 import { useState, useRef, useMemo } from 'react';
@@ -47,55 +48,58 @@ export default function GalleryCarousel() {
   }, [current, images.length]);
 
   return (
-    <section id="galeria" className="py-12 bg-gray-50">
-      <h2 className="text-3xl md:text-4xl font-bold text-center text-cyan-800 mb-6">
-        Proyectos Destacados
-      </h2>
+    <>
+      <section id="galeria" className="py-12 bg-gray-50 relative">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-cyan-800 mb-6">
+          Proyectos Destacados
+        </h2>
 
-      <div className="max-w-4xl mx-auto">
-        <Slider ref={sliderRef} {...settings}>
-          {images.map((src, idx) => (
-            <div key={idx} className="flex justify-center">
-              <div
-                className="relative w-full max-w-2xl h-0 pb-[56.25%] cursor-pointer"
-                onClick={() => {
-                  setLightboxIndex(idx);
-                  setLightboxOpen(true);
-                }}
-              >
-                <Image
-                  src={src}
-                  alt={`Proyecto de piscina ${idx + 1}`}
-                  fill
-                  sizes="100vw"
-                  className="object-cover rounded-lg shadow-lg"
-                />
+        <div className="max-w-4xl mx-auto">
+          <Slider ref={sliderRef} {...settings}>
+            {images.map((src, idx) => (
+              <div key={idx} className="flex justify-center">
+                <div
+                  className="relative w-full max-w-2xl h-0 pb-[56.25%] cursor-pointer"
+                  onClick={() => {
+                    console.log('Click imagen', idx);
+                    setLightboxIndex(idx);
+                    setLightboxOpen(true);
+                  }}
+                >
+                  <Image
+                    src={src}
+                    alt={`Proyecto de piscina ${idx + 1}`}
+                    fill
+                    sizes="100vw"
+                    className="object-cover rounded-lg shadow-lg"
+                  />
+                </div>
               </div>
-            </div>
-          ))}
-        </Slider>
+            ))}
+          </Slider>
 
-        {/* Controles manuales con más tamaño y separación */}
-        <div className="flex justify-center items-center space-x-6 mt-4">
-          {navButtons.map((idx, btn) => (
-            <button
-              key={btn}
-              onClick={() => sliderRef.current?.slickGoTo(idx)}
-              className={`
-                w-6 h-6 rounded-full
-                ${idx === current ? 'bg-cyan-800' : 'bg-cyan-300'}
-                hover:bg-cyan-600 transition-colors
-              `}
-              aria-label={`Ir a la imagen ${idx + 1}`}
-            />
-          ))}
+          {/* Controles manuales */}
+          <div className="flex justify-center items-center space-x-8 mt-4">
+            {navButtons.map((idx, btn) => (
+              <button
+                key={btn}
+                onClick={() => sliderRef.current?.slickGoTo(idx)}
+                className={`
+                  w-8 h-8 rounded-full
+                  ${idx === current ? 'bg-cyan-800' : 'bg-cyan-300'}
+                  hover:bg-cyan-600 transition-colors
+                `}
+                aria-label={`Ir a la imagen ${idx + 1}`}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox Modal fuera de la sección */}
       {lightboxOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-black bg-opacity-90 flex flex-col items-center justify-center z-[9999] p-4"
           onClick={() => setLightboxOpen(false)}
         >
           <div className="relative w-full max-w-3xl h-0 pb-[56.25%] mb-4">
@@ -115,7 +119,7 @@ export default function GalleryCarousel() {
                 e.stopPropagation();
                 setLightboxIndex((lightboxIndex - 1 + images.length) % images.length);
               }}
-              className="text-white text-3xl p-2 bg-cyan-800 rounded-full"
+              className="text-white text-4xl p-2 bg-cyan-800 rounded-full"
               aria-label="Anterior"
             >
               ‹
@@ -125,7 +129,7 @@ export default function GalleryCarousel() {
                 e.stopPropagation();
                 setLightboxIndex((lightboxIndex + 1) % images.length);
               }}
-              className="text-white text-3xl p-2 bg-cyan-800 rounded-full"
+              className="text-white text-4xl p-2 bg-cyan-800 rounded-full"
               aria-label="Siguiente"
             >
               ›
@@ -137,8 +141,8 @@ export default function GalleryCarousel() {
             {images.map((src, idx) => (
               <div
                 key={idx}
-                className={`relative w-20 h-12 flex-shrink-0 cursor-pointer rounded ${
-                  idx === lightboxIndex ? 'ring-2 ring-cyan-500' : ''
+                className={`relative w-24 h-16 flex-shrink-0 cursor-pointer rounded ${
+                  idx === lightboxIndex ? 'ring-4 ring-cyan-500' : ''
                 }`}
                 onClick={e => {
                   e.stopPropagation();
@@ -151,6 +155,6 @@ export default function GalleryCarousel() {
           </div>
         </div>
       )}
-    </section>
+    </>
   );
 }
