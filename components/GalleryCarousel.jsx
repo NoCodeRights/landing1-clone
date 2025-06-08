@@ -1,16 +1,24 @@
-// Archivo: src/components/GalleryCarousel.jsx
-// Descripción: Carrusel responsive de imágenes de proyectos destacados
+// File: components/GalleryCarousel.jsx
+'use client';
 
-import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import { useMemo } from 'react';
 
-// Importamos Slider de react-slick solo en cliente para evitar errores SSR
+// Import dinámico sin SSR
 const Slider = dynamic(() => import('react-slick'), { ssr: false });
 
-// Generamos rutas de imágenes, escapando espacios con encodeURI
-const images = Array.from({ length: 307 }, (_, i) => encodeURI(`/images/proyecto (${i + 1}).jpg`));
+// Estilos de slick-carousel
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 export default function GalleryCarousel() {
+  // Construimos la lista de imágenes escapando espacios
+  const images = useMemo(
+    () => Array.from({ length: 307 }, (_, i) => encodeURI(`/images/proyecto (${i + 1}).jpg`)),
+    []
+  );
+
   const settings = {
     dots: true,
     infinite: true,
@@ -19,7 +27,7 @@ export default function GalleryCarousel() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000,
-    adaptiveHeight: true
+    adaptiveHeight: true,
   };
 
   return (
@@ -28,21 +36,17 @@ export default function GalleryCarousel() {
         Proyectos Destacados
       </h2>
       <div className="px-4">
-        {/* Contenedor centrado y ancho máximo */}
         <div className="max-w-4xl mx-auto">
-          {/* Slider solo en cliente */}
           <Slider {...settings} className="mx-auto">
             {images.map((src, idx) => (
               <div key={idx} className="flex justify-center">
-                {/* Contenedor relativo para mantener ratio 16:9 */}
                 <div className="relative w-full max-w-2xl h-0 pb-[56.25%]">
                   <Image
                     src={src}
                     alt={`Proyecto de piscina ${idx + 1}`}
                     fill
                     sizes="100vw"
-                    style={{ objectFit: 'cover' }}
-                    className="rounded-lg shadow-lg"
+                    className="object-cover rounded-lg shadow-lg"
                   />
                 </div>
               </div>
