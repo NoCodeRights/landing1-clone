@@ -2,7 +2,7 @@
 
 //import { SEO } from '../utils/seo';
 //import Header from '../components/Header';
-import Hero from '../components/Hero';
+//import Hero from '../components/Hero';
 // import dynamic from 'next/dynamic';
 // const GalleryCarousel = dynamic(
 //   () => import('../components/GalleryCarousel'),
@@ -34,7 +34,7 @@ export default function Home() {
 
       {/* Secciones de la página */}
       <main>
-        <Hero />
+        {/* <Hero /> */}
         {/*
         <GalleryCarousel />
         <Process />
