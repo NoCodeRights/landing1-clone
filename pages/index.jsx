@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import Hero from '../components/Hero';
 import GalleryCarousel from '../components/GalleryCarousel';
 import Process from '../components/Process';
-import Testimonials from '../components/Testimonials';
+//import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
 import Footer from '../components/Footer';
 
@@ -34,7 +34,7 @@ export default function Home() {
         <Hero />
         <GalleryCarousel />
         <Process />
-        <Testimonials />
+        {/* <Testimonials /> */}
         <FAQ />
       </main>
 
