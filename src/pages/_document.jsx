@@ -1,14 +1,12 @@
-// src/pages/_document.jsx
+// Archivo: src/pages/_document.jsx
+// Personaliza el documento HTML y agrega atributos SEO base
 import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
     <Html lang="es">
       <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
+        {/* Meta adicional puede agregarse aquí si se desea */}
       </Head>
       <body>
         <Main />

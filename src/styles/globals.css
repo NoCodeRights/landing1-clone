@@ -3,6 +3,13 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Inter', sans-serif;
+  background-color: #E0F7FA;
+  font-family: 'Merriweather', serif;
+  color: #333333;           /* color carbón para todos los textos */
   scroll-behavior: smooth;
+}
+
+/*distintos pesos en headings, puede reforzarse */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;         /* Merriweather bold para títulos */
 }
