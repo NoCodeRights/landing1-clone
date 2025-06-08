@@ -3,7 +3,8 @@
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import dynamic from 'next/dynamic';
-import Process from '../components/Process'; // ✅ Reactivado
+import Process from '../components/Process';
+import FAQ from '../components/FAQ'; // ✅ Reactivado
 
 // Carrusel client-only
 const GalleryCarousel = dynamic(
@@ -14,18 +15,17 @@ const GalleryCarousel = dynamic(
 export default function Home() {
   return (
     <>
-      {/* Header fijo en top */}
       <Header />
 
       <main>
-        {/* Hero */}
         <Hero />
 
-        {/* Carrusel de proyectos (cliente-only) */}
         <GalleryCarousel />
 
-        {/* Nuestro Proceso */}
         <Process />
+
+        {/* Sección de Preguntas Frecuentes */}
+        <FAQ />
       </main>
     </>
   );
