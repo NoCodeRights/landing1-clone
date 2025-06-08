@@ -3,8 +3,9 @@
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import dynamic from 'next/dynamic';
+import Process from '../components/Process'; // ✅ Reactivado
 
-// Import dinámico del carrusel, solo en cliente
+// Carrusel client-only
 const GalleryCarousel = dynamic(
   () => import('../components/GalleryCarousel'),
   { ssr: false }
@@ -17,11 +18,14 @@ export default function Home() {
       <Header />
 
       <main>
-        {/* Sección Hero */}
+        {/* Hero */}
         <Hero />
 
         {/* Carrusel de proyectos (cliente-only) */}
         <GalleryCarousel />
+
+        {/* Nuestro Proceso */}
+        <Process />
       </main>
     </>
   );
