@@ -1,7 +1,14 @@
-import Slider from 'react-slick';
-import Image from 'next/image';
+// Archivo: src/components/GalleryCarousel.jsx
+// Descripción: Carrusel responsive de imágenes de proyectos destacados
 
-const images = Array.from({ length: 307 }, (_, i) => `/images/proyecto (${i + 1}).jpg`);
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
+
+// Importamos Slider de react-slick solo en cliente para evitar errores SSR
+const Slider = dynamic(() => import('react-slick'), { ssr: false });
+
+// Generamos rutas de imágenes, escapando espacios con encodeURI
+const images = Array.from({ length: 307 }, (_, i) => encodeURI(`/images/proyecto (${i + 1}).jpg`));
 
 export default function GalleryCarousel() {
   const settings = {
@@ -23,6 +30,7 @@ export default function GalleryCarousel() {
       <div className="px-4">
         {/* Contenedor centrado y ancho máximo */}
         <div className="max-w-4xl mx-auto">
+          {/* Slider solo en cliente */}
           <Slider {...settings} className="mx-auto">
             {images.map((src, idx) => (
               <div key={idx} className="flex justify-center">
