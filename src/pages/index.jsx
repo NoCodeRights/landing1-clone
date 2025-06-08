@@ -1,7 +1,7 @@
 // src/pages/index.jsx
 
 //import { SEO } from '../utils/seo';
-import Header from '../components/Header';
+//import Header from '../components/Header';
 import Hero from '../components/Hero';
 // import dynamic from 'next/dynamic';
 // const GalleryCarousel = dynamic(
@@ -30,7 +30,7 @@ export default function Home() {
       /> */}
 
       {/* Header fijo en top */}
-      <Header />
+      {/* <Header /> */}
 
       {/* Secciones de la página */}
       <main>
