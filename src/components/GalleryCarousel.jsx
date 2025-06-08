@@ -16,13 +16,13 @@ const Slider = dynamic(
 );
 
 export default function GalleryCarousel() {
-  const images = useMemo(
-    () =>
-      Array.from({ length: 307 }, (_, i) =>
-        encodeURI(`/images/proyecto (${i + 1}).jpg`)
-      ),
-    []
-  );
+  // temporalmente en GalleryCarousel.jsx
+const images = [
+  '/images/proyecto1.jpeg',
+  '/images/proyecto2.jpeg',
+  '/images/proyecto3.jpeg'
+];
+
 
   const settings = {
     dots: true,
