@@ -1,3 +1,4 @@
+// src/components/GalleryCarousel.jsx
 'use client';
 
 import { useState, useRef, useMemo } from 'react';
@@ -25,6 +26,8 @@ export default function GalleryCarousel() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    centerMode: false,
+    centerPadding: '0px',
     arrows: false,
     dots: false,
     autoplay: true,
@@ -51,7 +54,6 @@ export default function GalleryCarousel() {
                 <div
                   className="relative w-full max-w-2xl h-0 pb-[56.25%] cursor-pointer"
                   onClick={() => {
-                    console.log('Imagen clickeada:', idx);
                     setLightboxIndex(idx);
                     setLightboxOpen(true);
                   }}
@@ -90,22 +92,41 @@ export default function GalleryCarousel() {
       </section>
 
       {lightboxOpen && (
+        // Overlay que cierra solo si clicas fuera del contenido
         <div
-          className="fixed inset-0 bg-black bg-opacity-90 flex flex-col items-center justify-center z-[9999] p-4"
+          className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[9999] p-4"
           onClick={() => setLightboxOpen(false)}
         >
-          {/* 1) Prueba de diagnóstico */}
-          <div className="text-white mb-4">LIGHTBOX ABIERTO (cliquea para cerrar)</div>
-
-          {/* 2) Contenedor con altura fija */}
-          <div className="relative w-full max-w-3xl" style={{ height: '70vh' }}>
+          {/* Contenedor interno que no propaga el click */}
+          <div
+            className="relative bg-transparent"
+            style={{ width: '100%', maxWidth: '80vw', height: '80vh' }}
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Imagen grande */}
             <Image
               src={images[lightboxIndex]}
               alt={`Proyecto ${lightboxIndex + 1}`}
               fill
-              sizes="100vw"
+              sizes="80vw"
               className="object-contain"
             />
+
+            {/* Botones prev/next */}
+            <button
+              onClick={() => setLightboxIndex((lightboxIndex - 1 + images.length) % images.length)}
+              className="absolute top-1/2 left-0 -translate-y-1/2 text-white text-3xl p-2 bg-cyan-800 rounded-full"
+              aria-label="Anterior"
+            >
+              ‹
+            </button>
+            <button
+              onClick={() => setLightboxIndex((lightboxIndex + 1) % images.length)}
+              className="absolute top-1/2 right-0 -translate-y-1/2 text-white text-3xl p-2 bg-cyan-800 rounded-full"
+              aria-label="Siguiente"
+            >
+              ›
+            </button>
           </div>
         </div>
       )}
