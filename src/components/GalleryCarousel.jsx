@@ -26,8 +26,6 @@ export default function GalleryCarousel() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    centerMode: false,
-    centerPadding: '0px',
     arrows: false,
     dots: false,
     autoplay: true,
@@ -37,8 +35,8 @@ export default function GalleryCarousel() {
 
   const navButtons = useMemo(() => {
     const total = images.length;
-    return [-2, -1, 0, 1, 2].map(
-      (offset) => (current + offset + total) % total
+    return [-2, -1, 0, 1, 2].map(offset =>
+      (current + offset + total) % total
     );
   }, [current, images.length]);
 
@@ -47,7 +45,6 @@ export default function GalleryCarousel() {
   const showNext = () =>
     setLightboxIndex((lightboxIndex + 1) % images.length);
 
-  // Cerrar <dialog> con Escape
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === 'Escape' && dialogRef.current?.open) {
@@ -90,13 +87,7 @@ export default function GalleryCarousel() {
             ))}
           </Slider>
 
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              marginTop: 16,
-            }}
-          >
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
             {navButtons.map((idx, btn) => (
               <button
                 key={btn}
@@ -117,7 +108,6 @@ export default function GalleryCarousel() {
         </div>
       </section>
 
-      {/* Lightbox con <dialog> */}
       <dialog
         ref={dialogRef}
         className="p-0 bg-transparent border-0"
@@ -129,20 +119,38 @@ export default function GalleryCarousel() {
         }}
       >
         <div
-          className="relative bg-black rounded-lg overflow-hidden h-full"
-          style={{ position: 'relative' }}
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: '100%',
+            background: 'black',
+            overflow: 'hidden',
+          }}
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Botón Cerrar (arriba derecha) */}
+          {/* Botón Cerrar */}
           <button
             onClick={() => dialogRef.current.close()}
-            className="absolute top-2 right-2 text-white text-2xl p-1 bg-cyan-800 rounded-full z-20"
+            style={{
+              position: 'absolute',
+              top: 8,
+              right: 8,
+              width: 32,
+              height: 32,
+              borderRadius: '50%',
+              background: '#0E7490',
+              color: 'white',
+              border: 'none',
+              fontSize: 18,
+              cursor: 'pointer',
+              zIndex: 20,
+            }}
             aria-label="Cerrar"
           >
-            ✕
+            ×
           </button>
 
-          {/* Imagen en detalle */}
+          {/* Imagen grande */}
           <Image
             src={images[lightboxIndex]}
             alt={`Proyecto ${lightboxIndex + 1}`}
@@ -151,19 +159,47 @@ export default function GalleryCarousel() {
             className="object-contain"
           />
 
-          {/* Flecha Anterior (centro vertical, izquierda) */}
+          {/* Flecha Anterior */}
           <button
             onClick={showPrev}
-            className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white text-4xl p-2 bg-cyan-800 rounded-full z-10"
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: 8,
+              transform: 'translateY(-50%)',
+              width: 40,
+              height: 40,
+              borderRadius: '50%',
+              background: '#0E7490',
+              color: 'white',
+              border: 'none',
+              fontSize: 24,
+              cursor: 'pointer',
+              zIndex: 15,
+            }}
             aria-label="Anterior"
           >
             ‹
           </button>
 
-          {/* Flecha Siguiente (centro vertical, derecha) */}
+          {/* Flecha Siguiente */}
           <button
             onClick={showNext}
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white text-4xl p-2 bg-cyan-800 rounded-full z-10"
+            style={{
+              position: 'absolute',
+              top: '50%',
+              right: 8,
+              transform: 'translateY(-50%)',
+              width: 40,
+              height: 40,
+              borderRadius: '50%',
+              background: '#0E7490',
+              color: 'white',
+              border: 'none',
+              fontSize: 24,
+              cursor: 'pointer',
+              zIndex: 15,
+            }}
             aria-label="Siguiente"
           >
             ›
