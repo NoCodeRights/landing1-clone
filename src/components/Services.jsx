@@ -28,21 +28,26 @@ export default function Services() {
   ];
 
   return (
-    <section id="servicios" className="py-16 bg-gray-50">
+    <section id="servicios" className="py-20 bg-gray-100">
       <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-cyan-800 mb-8">
+        {/* Separador visual */}
+        <div className="border-t border-gray-300 mb-16"></div>
+
+        {/* Encabezado llamativo */}
+        <h2 className="text-4xl font-extrabold text-cyan-800 text-center mb-4">
           Servicios Adicionales
         </h2>
+        <div className="h-1 w-24 mx-auto bg-cyan-800 mb-12 rounded"></div>
+
+        {/* Tarjetas de servicios */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((svc, idx) => (
             <div
               key={idx}
-              className="flex flex-col items-center text-center p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow"
+              className="flex flex-col items-center text-center p-8 bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-shadow transform hover:-translate-y-1"
             >
-              <span className="text-5xl mb-4" aria-hidden="true">
-                {svc.icon}
-              </span>
-              <h3 className="text-xl font-semibold text-cyan-900 mb-2">
+              <div className="text-6xl mb-4">{svc.icon}</div>
+              <h3 className="text-2xl font-bold text-cyan-900 mb-2">
                 {svc.title}
               </h3>
               <p className="text-gray-700">{svc.description}</p>
