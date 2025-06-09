@@ -18,9 +18,10 @@ export default function Hero() {
       {/* Overlay suave */}
       <div className="absolute inset-0 bg-black/20" />
 
-      {/* Contenedor de texto */}
+      {/* Contenedor de texto centrado */}
       <div className="relative z-10 flex h-full items-center justify-center px-4">
         <div
+          className="text-center"                         // ← aquí
           style={{
             backgroundColor: 'rgba(255, 255, 255, 0.7)',
             borderRadius: '1.5rem',
