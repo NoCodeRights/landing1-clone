@@ -16,20 +16,44 @@ export default function Header() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
+  // Sin "Testimonios"
   const navItems = [
     { name: 'Inicio', href: '#inicio' },
     { name: 'Proyectos', href: '#galeria' },
     { name: 'Proceso', href: '#proceso' },
-    { name: 'Testimonios', href: '#testimonios' },
     { name: 'Contacto', href: '#contacto' }
   ];
 
   return (
     <header className="fixed top-0 w-full z-50">
-      <div className="bg-white/90 backdrop-blur-sm shadow">
+      <div className="bg-white/90 backdrop-blur-sm shadow relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-          {/* Logo + texto con fondo sólido */}
-          <div className="flex items-center bg-white px-3 py-1 rounded-lg shadow-sm">
+          {/* Botón hamburguesa (sólo móvil, izquierda) */}
+          {isMobile && (
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="text-cyan-900 md:hidden"
+              aria-label="Toggle menu"
+            >
+              {menuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          )}
+
+          {/* Navegación escritorio (izquierda) */}
+          <nav className="hidden md:flex space-x-6">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-cyan-900 hover:text-cyan-600 transition-colors"
+              >
+                {item.name}
+              </a>
+            ))}
+          </nav>
+
+          {/* Logo + texto (siempre a la derecha) */}
+          <div className="flex items-center">
             <Image
               src="/images/logo.png"
               alt="Logo Piscinas Patricio Luengo"
@@ -48,39 +72,16 @@ export default function Header() {
               Piscinas Patricio Luengo
             </span>
           </div>
-
-          {/* Navegación escritorio */}
-          <nav className="hidden md:flex space-x-6">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-cyan-900 hover:text-cyan-600 transition-colors"
-              >
-                {item.name}
-              </a>
-            ))}
-          </nav>
-
-          {/* Botón hamburguesa (solo en móvil) */}
-          {isMobile && (
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="text-cyan-900 md:hidden order-first"
-              aria-label="Toggle menu"
-            >
-              {menuOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          )}
         </div>
 
-        {/* Menú móvil desplegable como un solo rectángulo */}
+        {/* Menú móvil desplegable */}
         {menuOpen && isMobile && (
           <div
-            className="md:hidden w-full px-4 py-6 backdrop-blur-sm"
+            className="absolute top-full left-4 backdrop-blur-sm mt-2 p-4 space-y-2 shadow-lg"
             style={{
               backgroundColor: 'rgba(255,255,255,0.8)',
-              borderRadius: '0 0 12px 12px'
+              borderRadius: '0.75rem',
+              minWidth: '30vw'
             }}
           >
             {navItems.map((item) => (
@@ -88,7 +89,7 @@ export default function Header() {
                 key={item.name}
                 href={item.href}
                 onClick={() => setMenuOpen(false)}
-                className="block text-left text-cyan-900 font-medium py-2 transition-colors hover:text-cyan-600"
+                className="block text-cyan-900 font-medium py-2 px-3 rounded transition-colors hover:bg-cyan-50"
               >
                 {item.name}
               </a>
