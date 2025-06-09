@@ -1,3 +1,4 @@
+// src/components/GalleryCarousel.jsx
 'use client';
 
 import { useState, useRef, useMemo, useEffect } from 'react';
@@ -18,7 +19,6 @@ export default function GalleryCarousel() {
     []
   );
 
-  // CST: configuración vertical sin preview
   const settings = {
     vertical: true,
     verticalSwiping: true,
@@ -26,6 +26,8 @@ export default function GalleryCarousel() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    centerMode: false,
+    centerPadding: '0px',
     arrows: false,
     dots: false,
     autoplay: true,
@@ -33,32 +35,33 @@ export default function GalleryCarousel() {
     beforeChange: (_, next) => setCurrent(next),
   };
 
-  // índexes para 5 botones
   const navButtons = useMemo(() => {
     const total = images.length;
-    return [-2, -1, 0, 1, 2].map(off => (current + off + total) % total);
+    return [-2, -1, 0, 1, 2].map(offset =>
+      (current + offset + total) % total
+    );
   }, [current, images.length]);
-
-  // efecto para cerrar dialog con Esc
-  useEffect(() => {
-    const handleKey = e => {
-      if (e.key === 'Escape' && dialogRef.current.open) {
-        dialogRef.current.close();
-      }
-    };
-    window.addEventListener('keydown', handleKey);
-    return () => window.removeEventListener('keydown', handleKey);
-  }, []);
-
-  const openLightbox = idx => {
-    setLightboxIndex(idx);
-    dialogRef.current.showModal();
-  };
 
   const showPrev = () =>
     setLightboxIndex((lightboxIndex - 1 + images.length) % images.length);
   const showNext = () =>
     setLightboxIndex((lightboxIndex + 1) % images.length);
+
+  // close dialog on Escape
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape' && dialogRef.current?.open) {
+        dialogRef.current.close();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  const openLightbox = (idx) => {
+    setLightboxIndex(idx);
+    dialogRef.current?.showModal();
+  };
 
   return (
     <>
@@ -70,23 +73,30 @@ export default function GalleryCarousel() {
         <div className="max-w-4xl mx-auto overflow-hidden">
           <Slider ref={sliderRef} {...settings}>
             {images.map((src, idx) => (
-              <div
-                key={idx}
-                className="relative w-full max-w-2xl h-0 pb-[56.25%] cursor-pointer"
-                onClick={() => openLightbox(idx)}
-              >
-                <Image
-                  src={src}
-                  alt={`Proyecto ${idx + 1}`}
-                  fill
-                  sizes="100vw"
-                  className="object-cover rounded-lg shadow-lg"
-                />
+              <div key={idx} className="flex justify-center">
+                <div
+                  className="relative w-full max-w-2xl h-0 pb-[56.25%] cursor-pointer"
+                  onClick={() => openLightbox(idx)}
+                >
+                  <Image
+                    src={src}
+                    alt={`Proyecto ${idx + 1}`}
+                    fill
+                    sizes="100vw"
+                    className="object-cover rounded-lg shadow-lg"
+                  />
+                </div>
               </div>
             ))}
           </Slider>
 
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: 16,
+            }}
+          >
             {navButtons.map((idx, btn) => (
               <button
                 key={btn}
@@ -98,7 +108,7 @@ export default function GalleryCarousel() {
                   borderRadius: '50%',
                   backgroundColor: idx === current ? '#0E7490' : '#93C5FD',
                   border: 'none',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
                 }}
                 aria-label={`Ir a la imagen ${idx + 1}`}
               />
@@ -112,9 +122,26 @@ export default function GalleryCarousel() {
         ref={dialogRef}
         className="p-0 bg-transparent border-0"
         style={{ width: '90vw', maxWidth: 800, height: '80vh' }}
+        onClick={(e) => {
+          if (e.target === dialogRef.current) {
+            dialogRef.current.close();
+          }
+        }}
       >
-        <div className="relative w-full h-full bg-black rounded-lg overflow-hidden">
-          {/* Imagen en detalle */}
+        <div
+          className="relative bg-black rounded-lg overflow-hidden h-full flex items-center justify-center"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Botón Cerrar */}
+          <button
+            onClick={() => dialogRef.current.close()}
+            className="absolute top-2 right-2 text-white text-2xl p-1 bg-cyan-800 rounded-full z-10"
+            aria-label="Cerrar"
+          >
+            ✕
+          </button>
+
+          {/* Imagen grande */}
           <Image
             src={images[lightboxIndex]}
             alt={`Proyecto ${lightboxIndex + 1}`}
@@ -123,17 +150,19 @@ export default function GalleryCarousel() {
             className="object-contain"
           />
 
-          {/* Controles */}
+          {/* Flecha Anterior */}
           <button
             onClick={showPrev}
-            className="absolute top-1/2 left-2 -translate-y-1/2 text-white text-3xl p-2 bg-cyan-800 rounded-full"
+            className="absolute left-2 text-white text-4xl p-2 bg-cyan-800 rounded-full"
             aria-label="Anterior"
           >
             ‹
           </button>
+
+          {/* Flecha Siguiente */}
           <button
             onClick={showNext}
-            className="absolute top-1/2 right-2 -translate-y-1/2 text-white text-3xl p-2 bg-cyan-800 rounded-full"
+            className="absolute right-2 text-white text-4xl p-2 bg-cyan-800 rounded-full"
             aria-label="Siguiente"
           >
             ›
