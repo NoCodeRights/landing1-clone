@@ -17,3 +17,11 @@ h1, h2, h3, h4, h5, h6 {
 dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.8);
 }
+
+.social-icon {
+  color: #ffffff;
+  transition: color 0.2s ease;
+}
+.social-icon:hover {
+  color: #CFFAFE; /* cyan-200 */
+}
