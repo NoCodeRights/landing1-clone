@@ -1,14 +1,13 @@
-// src/components/GalleryCarousel.jsx
 'use client';
 
-import { useState, useRef, useMemo } from 'react';
+import { useState, useRef, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import Slider from 'react-slick';
 
 export default function GalleryCarousel() {
   const sliderRef = useRef(null);
+  const dialogRef = useRef(null);
   const [current, setCurrent] = useState(0);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
   const images = useMemo(
@@ -19,6 +18,7 @@ export default function GalleryCarousel() {
     []
   );
 
+  // CST: configuración vertical sin preview
   const settings = {
     vertical: true,
     verticalSwiping: true,
@@ -26,8 +26,6 @@ export default function GalleryCarousel() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    centerMode: false,
-    centerPadding: '0px',
     arrows: false,
     dots: false,
     autoplay: true,
@@ -35,10 +33,32 @@ export default function GalleryCarousel() {
     beforeChange: (_, next) => setCurrent(next),
   };
 
+  // índexes para 5 botones
   const navButtons = useMemo(() => {
     const total = images.length;
-    return [-2, -1, 0, 1, 2].map(offset => (current + offset + total) % total);
+    return [-2, -1, 0, 1, 2].map(off => (current + off + total) % total);
   }, [current, images.length]);
+
+  // efecto para cerrar dialog con Esc
+  useEffect(() => {
+    const handleKey = e => {
+      if (e.key === 'Escape' && dialogRef.current.open) {
+        dialogRef.current.close();
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, []);
+
+  const openLightbox = idx => {
+    setLightboxIndex(idx);
+    dialogRef.current.showModal();
+  };
+
+  const showPrev = () =>
+    setLightboxIndex((lightboxIndex - 1 + images.length) % images.length);
+  const showNext = () =>
+    setLightboxIndex((lightboxIndex + 1) % images.length);
 
   return (
     <>
@@ -50,22 +70,18 @@ export default function GalleryCarousel() {
         <div className="max-w-4xl mx-auto overflow-hidden">
           <Slider ref={sliderRef} {...settings}>
             {images.map((src, idx) => (
-              <div key={idx} className="flex justify-center">
-                <div
-                  className="relative w-full max-w-2xl h-0 pb-[56.25%] cursor-pointer"
-                  onClick={() => {
-                    setLightboxIndex(idx);
-                    setLightboxOpen(true);
-                  }}
-                >
-                  <Image
-                    src={src}
-                    alt={`Proyecto ${idx + 1}`}
-                    fill
-                    sizes="100vw"
-                    className="object-cover rounded-lg shadow-lg"
-                  />
-                </div>
+              <div
+                key={idx}
+                className="relative w-full max-w-2xl h-0 pb-[56.25%] cursor-pointer"
+                onClick={() => openLightbox(idx)}
+              >
+                <Image
+                  src={src}
+                  alt={`Proyecto ${idx + 1}`}
+                  fill
+                  sizes="100vw"
+                  className="object-cover rounded-lg shadow-lg"
+                />
               </div>
             ))}
           </Slider>
@@ -91,45 +107,39 @@ export default function GalleryCarousel() {
         </div>
       </section>
 
-      {lightboxOpen && (
-        // Overlay que cierra solo si clicas fuera del contenido
-        <div
-          className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[9999] p-4"
-          onClick={() => setLightboxOpen(false)}
-        >
-          {/* Contenedor interno que no propaga el click */}
-          <div
-            className="relative bg-transparent"
-            style={{ width: '100%', maxWidth: '80vw', height: '80vh' }}
-            onClick={e => e.stopPropagation()}
-          >
-            {/* Imagen grande */}
-            <Image
-              src={images[lightboxIndex]}
-              alt={`Proyecto ${lightboxIndex + 1}`}
-              fill
-              sizes="80vw"
-              className="object-contain"
-            />
+      {/* Lightbox con <dialog> */}
+      <dialog
+        ref={dialogRef}
+        className="p-0 bg-transparent border-0"
+        style={{ width: '90vw', maxWidth: 800, height: '80vh' }}
+      >
+        <div className="relative w-full h-full bg-black rounded-lg overflow-hidden">
+          {/* Imagen en detalle */}
+          <Image
+            src={images[lightboxIndex]}
+            alt={`Proyecto ${lightboxIndex + 1}`}
+            fill
+            sizes="90vw"
+            className="object-contain"
+          />
 
-            {/* Botones prev/next */}
-            <button
-              onClick={() => setLightboxIndex((lightboxIndex - 1 + images.length) % images.length)}
-              className="absolute top-1/2 left-0 -translate-y-1/2 text-white text-3xl p-2 bg-cyan-800 rounded-full"
-              aria-label="Anterior"
-            >
-              ‹
-            </button>
-            <button
-              onClick={() => setLightboxIndex((lightboxIndex + 1) % images.length)}
-              className="absolute top-1/2 right-0 -translate-y-1/2 text-white text-3xl p-2 bg-cyan-800 rounded-full"
-              aria-label="Siguiente"
-            >
-              ›
-            </button>
-          </div>
+          {/* Controles */}
+          <button
+            onClick={showPrev}
+            className="absolute top-1/2 left-2 -translate-y-1/2 text-white text-3xl p-2 bg-cyan-800 rounded-full"
+            aria-label="Anterior"
+          >
+            ‹
+          </button>
+          <button
+            onClick={showNext}
+            className="absolute top-1/2 right-2 -translate-y-1/2 text-white text-3xl p-2 bg-cyan-800 rounded-full"
+            aria-label="Siguiente"
+          >
+            ›
+          </button>
         </div>
-      )}
+      </dialog>
     </>
   );
 }
