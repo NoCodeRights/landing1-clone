@@ -25,3 +25,5 @@ dialog::backdrop {
 .social-icon:hover {
   color: #CFFAFE; /* cyan-200 */
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&display=swap');
