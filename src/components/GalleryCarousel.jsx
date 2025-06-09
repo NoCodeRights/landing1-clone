@@ -37,8 +37,8 @@ export default function GalleryCarousel() {
 
   const navButtons = useMemo(() => {
     const total = images.length;
-    return [-2, -1, 0, 1, 2].map(offset =>
-      (current + offset + total) % total
+    return [-2, -1, 0, 1, 2].map(
+      (offset) => (current + offset + total) % total
     );
   }, [current, images.length]);
 
@@ -47,7 +47,7 @@ export default function GalleryCarousel() {
   const showNext = () =>
     setLightboxIndex((lightboxIndex + 1) % images.length);
 
-  // close dialog on Escape
+  // Cerrar <dialog> con Escape
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === 'Escape' && dialogRef.current?.open) {
@@ -129,19 +129,20 @@ export default function GalleryCarousel() {
         }}
       >
         <div
-          className="relative bg-black rounded-lg overflow-hidden h-full flex items-center justify-center"
+          className="relative bg-black rounded-lg overflow-hidden h-full"
+          style={{ position: 'relative' }}
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Botón Cerrar */}
+          {/* Botón Cerrar (arriba derecha) */}
           <button
             onClick={() => dialogRef.current.close()}
-            className="absolute top-2 right-2 text-white text-2xl p-1 bg-cyan-800 rounded-full z-10"
+            className="absolute top-2 right-2 text-white text-2xl p-1 bg-cyan-800 rounded-full z-20"
             aria-label="Cerrar"
           >
             ✕
           </button>
 
-          {/* Imagen grande */}
+          {/* Imagen en detalle */}
           <Image
             src={images[lightboxIndex]}
             alt={`Proyecto ${lightboxIndex + 1}`}
@@ -150,19 +151,19 @@ export default function GalleryCarousel() {
             className="object-contain"
           />
 
-          {/* Flecha Anterior */}
+          {/* Flecha Anterior (centro vertical, izquierda) */}
           <button
             onClick={showPrev}
-            className="absolute left-2 text-white text-4xl p-2 bg-cyan-800 rounded-full"
+            className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white text-4xl p-2 bg-cyan-800 rounded-full z-10"
             aria-label="Anterior"
           >
             ‹
           </button>
 
-          {/* Flecha Siguiente */}
+          {/* Flecha Siguiente (centro vertical, derecha) */}
           <button
             onClick={showNext}
-            className="absolute right-2 text-white text-4xl p-2 bg-cyan-800 rounded-full"
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white text-4xl p-2 bg-cyan-800 rounded-full z-10"
             aria-label="Siguiente"
           >
             ›
