@@ -1,4 +1,4 @@
-// src/components/Services.jsx
+import React from 'react';
 import Card from './Card';
 
 export default function Services() {
@@ -30,23 +30,66 @@ export default function Services() {
   ];
 
   return (
-    <section id="servicios" className="py-20 bg-gray-100">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="border-t border-gray-300 mb-16" />
+    <section
+      id="servicios"
+      style={{ padding: '80px 0', backgroundColor: '#F3F4F6' }}
+    >
+      <div style={{ maxWidth: 1024, margin: '0 auto', padding: '0 16px' }}>
+        <div
+          style={{
+            borderTop: '1px solid #D1D5DB',
+            marginBottom: 64
+          }}
+        />
 
-        <h2 className="text-4xl font-extrabold text-cyan-800 text-center mb-4">
+        <h2
+          style={{
+            fontSize: '2.5rem',
+            fontWeight: 800,
+            color: '#065F46',
+            textAlign: 'center',
+            marginBottom: '8px'
+          }}
+        >
           Servicios Adicionales
         </h2>
-        <div className="h-1 w-24 mx-auto bg-cyan-800 mb-12 rounded" />
+        <div
+          style={{
+            width: 96,
+            height: 4,
+            backgroundColor: '#0E7490',
+            borderRadius: 4,
+            margin: '0 auto 48px'
+          }}
+        />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Grid responsive */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+            gap: 32
+          }}
+        >
           {services.map((svc, idx) => (
             <Card key={idx}>
-              <div className="text-6xl mb-4 text-center">{svc.icon}</div>
-              <h3 className="text-2xl font-bold text-cyan-900 mb-2 text-center">
+              <div style={{ fontSize: '3rem', marginBottom: 16, textAlign: 'center' }}>
+                {svc.icon}
+              </div>
+              <h3
+                style={{
+                  fontSize: '1.5rem',
+                  fontWeight: 700,
+                  color: '#064E3B',
+                  textAlign: 'center',
+                  marginBottom: 8
+                }}
+              >
                 {svc.title}
               </h3>
-              <p className="text-gray-700 text-center">{svc.description}</p>
+              <p style={{ color: '#374151', textAlign: 'center' }}>
+                {svc.description}
+              </p>
             </Card>
           ))}
         </div>

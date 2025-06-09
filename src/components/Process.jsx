@@ -1,4 +1,4 @@
-// src/components/Process.jsx
+import React from 'react';
 import Card from './Card';
 
 export default function Process() {
@@ -31,22 +31,57 @@ export default function Process() {
   return (
     <section
       id="proceso"
-      className="py-20 bg-gradient-to-b from-cyan-50 to-white"
+      style={{ padding: '80px 0', background: 'linear-gradient(to bottom, #ECFEFF, #FFFFFF)' }}
     >
-      <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-4xl font-extrabold text-cyan-800 text-center mb-4">
+      <div style={{ maxWidth: 1024, margin: '0 auto', padding: '0 16px' }}>
+        <h2
+          style={{
+            fontSize: '2.5rem',
+            fontWeight: 800,
+            color: '#065F46',
+            textAlign: 'center',
+            marginBottom: '8px'
+          }}
+        >
           Nuestro Proceso
         </h2>
-        <div className="h-1 w-24 mx-auto bg-cyan-800 mb-12 rounded" />
+        <div
+          style={{
+            width: 96,
+            height: 4,
+            backgroundColor: '#0E7490',
+            borderRadius: 4,
+            margin: '0 auto 48px'
+          }}
+        />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Grid responsive 250px min */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+            gap: 32
+          }}
+        >
           {steps.map((step, idx) => (
             <Card key={idx}>
-              <div className="text-6xl mb-4 text-center">{step.icon}</div>
-              <h3 className="text-2xl font-bold text-cyan-900 mb-2 text-center">
+              <div style={{ fontSize: '3rem', marginBottom: 16, textAlign: 'center' }}>
+                {step.icon}
+              </div>
+              <h3
+                style={{
+                  fontSize: '1.5rem',
+                  fontWeight: 700,
+                  color: '#064E3B',
+                  textAlign: 'center',
+                  marginBottom: 8
+                }}
+              >
                 {step.title}
               </h3>
-              <p className="text-gray-700 text-center">{step.description}</p>
+              <p style={{ color: '#374151', textAlign: 'center' }}>
+                {step.description}
+              </p>
             </Card>
           ))}
         </div>
