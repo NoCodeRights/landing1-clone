@@ -6,7 +6,7 @@ export default function Services() {
     {
       title: 'Mantención Integral',
       description:
-        'Limpieza, balance químico y revisión periódica para que tu piscina siempre luzca perfecta.',
+        'Limpieza y revisión periódica para que tu piscina siempre luzca perfecta.',
       icon: '🧹'
     },
     {

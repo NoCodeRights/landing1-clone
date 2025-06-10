@@ -35,49 +35,37 @@ export default function Footer() {
           </p>
 
           {/* Botón de WhatsApp solo icono */}
-          <a
-            href="https://wa.me/56998999712?text=¡Hola%20Patricio!%20Quiero%20más%20info%20sobre%20sus%20servicios%20de%20piscinas."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold p-4 rounded-full transition-colors"
-            style={{ width: '56px', height: '56px' }}
-            aria-label="WhatsApp"
-          >
-            <FontAwesomeIcon
-              icon={faWhatsapp}
-              className="social-icon"
-              style={{ fontSize: '1.75rem' }}
-            />
-          </a>
+          <Link href="https://wa.me/56998999712?text=¡Hola%20Patricio!%20Quiero%20más%20info%20sobre%20sus%20servicios%20de%20piscinas." legacyBehavior>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold p-4 rounded-full transition-colors"
+              style={{ width: '56px', height: '56px' }}
+              aria-label="WhatsApp"
+            >
+              <FontAwesomeIcon icon={faWhatsapp} className="social-icon" style={{ fontSize: '1.75rem' }} />
+            </a>
+          </Link>
         </div>
 
         {/* Redes sociales */}
         <div className="flex flex-col">
           <h4 className="font-bold text-lg mb-4">Síguenos</h4>
-          <div
-            className="flex"
-            style={{ gap: '24px' }}
-          >
-            <Link href="#" aria-label="Instagram">
-              <FontAwesomeIcon
-                icon={faInstagram}
-                className="social-icon"
-                style={{ fontSize: '2rem' }}
-              />
+          <div className="flex" style={{ gap: '24px' }}>
+            <Link href="https://www.instagram.com/cons.depiscinaspatricioluengo" legacyBehavior>
+              <a target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <FontAwesomeIcon icon={faInstagram} className="social-icon" style={{ fontSize: '2rem', color: '#FFFFFF' }} />
+              </a>
             </Link>
-            <Link href="#" aria-label="Facebook">
-              <FontAwesomeIcon
-                icon={faFacebook}
-                className="social-icon"
-                style={{ fontSize: '2rem' }}
-              />
+            <Link href="https://www.facebook.com/piscinas.patricio.luengo" legacyBehavior>
+              <a target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <FontAwesomeIcon icon={faFacebook} className="social-icon" style={{ fontSize: '2rem', color: '#FFFFFF' }} />
+              </a>
             </Link>
-            <Link href="#" aria-label="TikTok">
-              <FontAwesomeIcon
-                icon={faTiktok}
-                className="social-icon"
-                style={{ fontSize: '2rem' }}
-              />
+            <Link href="https://www.tiktok.com/@cons_piscinas_pat" legacyBehavior>
+              <a target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                <FontAwesomeIcon icon={faTiktok} className="social-icon" style={{ fontSize: '2rem', color: '#FFFFFF' }} />
+              </a>
             </Link>
           </div>
         </div>
@@ -85,11 +73,9 @@ export default function Footer() {
         {/* Logo y derechos */}
         <div className="text-center md:text-right">
           <p className="font-bold text-lg">Piscinas Patricio Luengo</p>
-          <p className="mt-2 text-sm">
-            © {new Date().getFullYear()} Todos los derechos reservados
-          </p>
+          <p className="mt-2 text-sm">© {new Date().getFullYear()} Todos los derechos reservados</p>
         </div>
       </div>
     </footer>
-);
+  );
 }
