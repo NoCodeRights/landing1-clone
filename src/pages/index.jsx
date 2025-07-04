@@ -20,8 +20,8 @@ export default function Home() {
 
       <main>
         <Hero />
-        <GalleryCarousel />
         <Process />
+        <GalleryCarousel />
         <Services />
 
         <FAQ />

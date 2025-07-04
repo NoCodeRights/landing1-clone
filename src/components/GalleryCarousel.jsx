@@ -13,7 +13,7 @@ export default function GalleryCarousel() {
 
   const images = useMemo(
     () =>
-      Array.from({ length: 307 }, (_, i) =>
+      Array.from({ length: 362 }, (_, i) =>
         encodeURI(`/images/proyecto (${i + 1}).jpg`)
       ),
     []
