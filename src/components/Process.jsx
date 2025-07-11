@@ -1,91 +1,47 @@
-import React from 'react';
-import Card from './Card';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 
 export default function Process() {
   const steps = [
     {
+      icon: '🎨',
       title: 'Diseño y Asesoría',
-      description:
-        'Creamos un plan personalizado según el espacio y estilo deseado.',
-      icon: '🎨'
+      description: 'Plan personalizado según el espacio.',
     },
     {
+      icon: '🛠️',
       title: 'Excavación',
-      description:
-        'Preparación del terreno y nivelación para iniciar la construcción.',
-      icon: '🛠️'
+      description: 'Preparación del terreno y nivelación.',
     },
     {
+      icon: '🏗️',
       title: 'Revestimiento',
-      description:
-        'Colocación de materiales impermeables y acabados internos.',
-      icon: '🏗️'
+      description: 'Materiales impermeables y acabados.',
     },
     {
+      icon: '✅',
       title: 'Acabado y Entrega',
-      description: 'Detalles finales, limpieza y entrega lista para usar.',
-      icon: '✅'
-    }
+      description: 'Detalles finales y entrega lista.',
+    },
   ];
 
   return (
-    <section
-      id="proceso"
-      style={{ padding: '80px 0', background: 'linear-gradient(to bottom, #ECFEFF, #FFFFFF)' }}
-    >
-      <div style={{ maxWidth: 1024, margin: '0 auto', padding: '0 16px' }}>
-        <h2
-          style={{
-            fontSize: '2.5rem',
-            fontWeight: 800,
-            color: '#065F46',
-            textAlign: 'center',
-            marginBottom: '8px'
-          }}
-        >
-          Nuestro Proceso
-        </h2>
-        <div
-          style={{
-            width: 96,
-            height: 4,
-            backgroundColor: '#0E7490',
-            borderRadius: 4,
-            margin: '0 auto 48px'
-          }}
-        />
-
-        {/* Grid responsive 250px min */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: 32
-          }}
-        >
-          {steps.map((step, idx) => (
-            <Card key={idx}>
-              <div style={{ fontSize: '3rem', marginBottom: 16, textAlign: 'center' }}>
-                {step.icon}
-              </div>
-              <h3
-                style={{
-                  fontSize: '1.5rem',
-                  fontWeight: 700,
-                  color: '#064E3B',
-                  textAlign: 'center',
-                  marginBottom: 8
-                }}
-              >
-                {step.title}
-              </h3>
-              <p style={{ color: '#374151', textAlign: 'center' }}>
-                {step.description}
-              </p>
-            </Card>
+    <section id="proceso" className="py-5 bg-white">
+      <Container>
+        <h2 className="text-center text-cyan-800 mb-4">Nuestro Proceso</h2>
+        <Row>
+          {steps.map((s, idx) => (
+            <Col key={idx} xs={12} sm={6} lg={3} className="mb-4">
+              <Card className="h-100 shadow-sm text-center">
+                <Card.Body>
+                  <div className="display-4 mb-3">{s.icon}</div>
+                  <Card.Title>{s.title}</Card.Title>
+                  <Card.Text>{s.description}</Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
           ))}
-        </div>
-      </div>
+        </Row>
+      </Container>
     </section>
   );
 }

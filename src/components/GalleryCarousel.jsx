@@ -1,47 +1,80 @@
+// src/components/GalleryCarousel.jsx
 'use client';
 
-import Slider from 'react-slick';
+import { useState } from 'react';
 import Image from 'next/image';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import {
+  Carousel,
+  Modal,
+  Button,
+  Container,
+} from 'react-bootstrap';
 
 export default function GalleryCarousel() {
-  const images = [1, 2, 3, 4, 5].map((i) => `/images/carrusel${i}.jpeg`);
+  const slides = [1,2,3,4,5].map((i) => `/images/carrusel${i}.jpeg`);
+  const [index, setIndex] = useState(0);
+  const [modalShow, setModalShow] = useState(false);
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 600,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    adaptiveHeight: true,
+  const handleSelect = (selectedIndex) => {
+    setIndex(selectedIndex);
   };
 
   return (
-    <section id="galeria" className="py-12 bg-gray-50">
-      <h2 className="text-3xl md:text-4xl font-bold text-center text-cyan-800 mb-6">
-        Proyectos Destacados
-      </h2>
+    <section id="galeria" className="py-5 bg-gray-50">
+      <Container>
+        <h2 className="text-center text-cyan-800 mb-4">Proyectos Destacados</h2>
 
-      <div className="max-w-4xl mx-auto px-4">
-        <Slider {...settings}>
-          {images.map((src, idx) => (
-            <div key={idx} className="px-2">
-              <div className="relative w-full h-0 pb-[56.25%]">
+        <Carousel
+          activeIndex={index}
+          onSelect={handleSelect}
+          interval={4000}
+          touch={true}
+        >
+          {slides.map((src, idx) => (
+            <Carousel.Item key={idx} onClick={() => setModalShow(true)} style={{ cursor: 'pointer' }}>
+              <div
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  paddingBottom: '56.25%',
+                }}
+              >
                 <Image
                   src={src}
-                  alt={`Carrusel ${idx + 1}`}
+                  alt={`Slide ${idx+1}`}
                   fill
-                  className="object-cover rounded-lg shadow-lg"
-                  priority={idx === 0}
+                  className="object-cover"
                 />
               </div>
-            </div>
+            </Carousel.Item>
           ))}
-        </Slider>
-      </div>
+        </Carousel>
+
+        {/* Modal */}
+        <Modal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          size="lg"
+          centered
+        >
+          <Modal.Body className="p-0 position-relative">
+            <Image
+              src={slides[index]}
+              alt={`Slide ${index+1}`}
+              width={800}
+              height={450}
+              className="w-100"
+            />
+            <Button
+              variant="secondary"
+              className="position-absolute top-0 end-0 m-2"
+              onClick={() => setModalShow(false)}
+            >
+              ×
+            </Button>
+          </Modal.Body>
+        </Modal>
+      </Container>
     </section>
   );
 }
